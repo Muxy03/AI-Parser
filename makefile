@@ -6,4 +6,4 @@ report.pdf: Report/report.tex
 
 
 clean:
-	rm -f Report/report.aux Report/report.log Report/report.out Report/report.toc Report/report.synctex.gz Report/report.fdb_latexmk Report/report.fls
+	rm -f Report/report.aux Report/report.log Report/report.out Report/report.toc Report/report.synctex.gz Report/report.fdb_latexmk Report/report.fls Report/_minted

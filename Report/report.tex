@@ -3,8 +3,16 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{geometry}
+\usepackage{listings}
+\usepackage{minted}
+
+\renewcommand\listoflistingscaption{List of source codes}
+
 \geometry{a4paper, margin=1in}
-\title{Comprehensive Report on Data Analysis}
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+
+\title{AI-Powered Markdown Parser with Mermaid Support}
 \author{Andrea Mussari}
 \date{\today}
 
@@ -12,16 +20,121 @@
 
 \maketitle
 
+\tableofcontents
+\listoflistings
+
+\newpage
+
 \section{Introduction}
+The goal of this project is to use AI to design and implement a Markdown parser that supports standard Mardown features across multiple blocks of Mermaid code. 
 
-The goal of this project is use AI as a tool to design and implement a Markdown parser that supports standard Markdown features plus Mermaid code blocks, producing a structured representation that could be rendered to HTML with special handling for Mermaid diagrams.
+I chose to use Claude (Sonnet 4.5) because in my personal experience using AI in programming, such as AdventCode or Leetcode challenges, it is the one that produces the best results.
 
-I choose Rust as programming language and i use ChatGPT-5.2 to help me in the development process.
-
+For the choice of programming language, I asked Claude directly which one is best for him.
 \section{Development Process}
+
+The section is divided into paragraphs where each paragraph represents a stage in the development of the project.
 
 \subsection{Prompt \#1}
 
+\textbf{"I would like your help designing and implementing a Markdown parser that supports standard Mardown features across multiple blocks of Mermaid code, producing a structured representation that can be rendered in HTML with special handling for Mermaid diagrams.\newline I would like your opinion on the best programming language to carry out a project of this type."}\\
+
+With this prompt, my aim was to make the goal as clear as possible to Claude and to verify whether he had correctly identified the context of the project.
+
+Claude replied that in his opinion the most suitable programming language is Javascript/Typescript, giving several reasons:
+
+\begin{itemize}
+\item Ecosystem fit.
+\item Excellent existing libraries such as \textit{marked}, \textit{mardown-it} or \textit{remark} for Markdown and \textit{mermaid} library for diagram rendering.
+\item Universal deployment.
+\item Strong typing with Typescript.
+\end{itemize}
+
+This list of reasons is a compelling argument for choosing Javascript/Typescript as the programming language for the project, but Claude still gave me a list of programming language alternatives: Python, Rust, and Go; and for each, he gave advantages and disadvantages over choosing Javascript/Typescript.
+
+He then suggested a scheme for the architecture, independent of the choice of programming language, divided into:
+
+\begin{enumerate}
+\item Lexer/Tokenizer.
+\item Parser.
+\item Renderer.
+\item Post-processor.
+\end{enumerate}
+
+Finally he asked me if I preferred a full parser from scatch or a pratical solution using existing libraries.
+
+\newpage
+
 \subsection{Prompt \#2}
+
+\textbf{"I would prefer a practical solution in Typescript that uses existing libraries.\newline Set up the code so that each component has a corresponding file. If the files share features, create a module file to optimize, and finally create a main project file."}
+
+The intent of this prompt is to test its most practical and fastest solution while still giving it an idea of code organization that would allow me to more easily identify component problems.
+
+In fact, the following files were eventually generated:
+
+\begin{itemize}
+\item README.md
+\item src/types.ts - Core type definitions and interfaces.
+\item src/utils.ts - Shared utility functions (ID generation, validation, escaping).
+\item src/lexer.ts - Tokenization using the \textit{marked} library.
+\item src/mermaidProcessor.ts - Mermaid diagram extraction and processing.
+\item src/renderer.ts - HTML rendering with custom Mermaid handling.
+\item src/parser.ts - Main orchestrator that coordinates all components.
+\item src/index.ts - Public API with convenience functions and demo code. 
+\item package.json
+\item tsconfig.json
+\end{itemize}
+
+I decided to try the demo he created. To do this, you need to run three commands in order: \textit{npm install}; \textit{npm run build}; \textit{npm test}.
+
+The \textit{npm run build} command that matches tsc, transpiler typescript to javascript, stops finding 11 errors in 3 files.
+
+\subsubsection{Error analysis}
+
+
+As previously mentioned, tsc has identified 11 errors, 9 of which are repetitions of the same error, so we can say that there are 4 distinct errors:
+
+\begin{itemize}
+    \item \texttt{error TS2694: Namespace ``/\ldots/node\_modules/marked/lib/marked''.marked' has no exported member `Token'.}
+    \item \texttt{error TS2694: Namespace ``/\ldots/node\_modules/marked/lib/marked''.marked' has no exported member `Tokens'.}
+    \item \texttt{error TS2749: `marked.Renderer' refers to a value, but is being used as a type here. Did you mean `typeof marked.Renderer'?}
+    \item \texttt{error TS2353: Object literal may only specify known properties, and `headerIds' does not exist in type `MarkedOptions'.}
+\end{itemize}
+
+\paragraph[Error \#1 and \#2]{Error \#1 and \#2\newline}
+
+This error occurs in the \texttt{lexer.ts} and \texttt{mermaidProcessor.ts} files. After some research, checking the package.json file, I discovered that the package marked in the "dependencies" entry was not set to the latest available version, which resulted in the @types/marked package being added to the "devDependencies" entry, which is deprecated because in the latest marked versions it provides its own type definitions. 
+
+Claude's error can be corrected by updating the import statement and replace all instances of marked.Token and marked.Tokens with Token and Tokens respectively.
+
+\begin{lstlisting}[language=Java, caption={lexer.ts and mermaidProcessor.ts}]
+import { marked } from 'marked'; // Original import causing errors
+import { marked, type Token, Tokens } from 'marked'; // Corrected import
+\end{lstlisting}
+
+\paragraph[Error \#3]{Error \#3\newline}
+
+This error occurs in \texttt{renderer.ts} file. The issue is analogous to the previous one, and can be resolved by updating the import statement and replace all instances of marked.Renderer with Renderer respectively.
+\begin{lstlisting}[language=Java, caption={renderer.ts}]
+import { marked } from 'marked'; // Original import causing errors
+import { marked, Renderer } from 'marked'; // Corrected import
+\end{lstlisting}
+
+\paragraph[Error \#4]{Error \#4\newline}
+
+This error occurs in \texttt{renderer.ts} file. The issue arises because the headerIds and mangle options doesn't exist in the MarkedOptions type. To resolve this, simply remove the line that sets the headerIds and mangle options in the marked.setOptions call.
+
+\begin{lstlisting}[language=Java, caption={renderer.ts}]
+    marked.setOptions({
+       renderer: this.renderer,
+       gfm: this.options.gfm ?? true,
+       breaks: this.options.breaks ?? true,
+       headerIds: this.options.headerIds ?? true, // Remove to fix error
+       mangle: false // Remove to fix error
+    });
+\end{lstlisting}
+
+After making these corrections, the code should compile successfully without any errors.
 
 \end{document}

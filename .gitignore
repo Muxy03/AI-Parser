@@ -1,0 +1,8 @@
+Report/*.aux
+Report/*.log
+Report/*.out
+Report/*.toc
+Report/*.synctex.gz
+Report/*.fdb_latexmk
+Report/*.fls
+_minted/
