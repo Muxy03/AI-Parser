@@ -1,7 +1,7 @@
 /**
  * Mermaid Processor - Handles Mermaid diagram extraction and rendering
  */
-import { marked } from 'marked';
+import { type Token } from 'marked';
 import { MermaidBlock, ParserOptions } from './types';
 export declare class MermaidProcessor {
     private mermaidBlocks;
@@ -10,7 +10,7 @@ export declare class MermaidProcessor {
     /**
      * Extracts all Mermaid blocks from tokens
      */
-    extractMermaidBlocks(tokens: marked.Token[]): MermaidBlock[];
+    extractMermaidBlocks(tokens: Token[]): MermaidBlock[];
     /**
      * Gets the count of Mermaid diagrams
      */

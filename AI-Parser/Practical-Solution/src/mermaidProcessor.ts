@@ -2,7 +2,7 @@
  * Mermaid Processor - Handles Mermaid diagram extraction and rendering
  */
 
-import { marked } from 'marked';
+import { marked, type Token, Tokens } from 'marked';
 import { MermaidBlock, ParserOptions } from './types';
 import { 
   generateMermaidId, 
@@ -22,13 +22,13 @@ export class MermaidProcessor {
   /**
    * Extracts all Mermaid blocks from tokens
    */
-  extractMermaidBlocks(tokens: marked.Token[]): MermaidBlock[] {
+  extractMermaidBlocks(tokens: Token[]): MermaidBlock[] {
     this.mermaidBlocks = [];
     let index = 0;
 
     for (const token of tokens) {
       if (token.type === 'code' && 'lang' in token && isMermaidBlock(token.lang)) {
-        const codeToken = token as marked.Tokens.Code;
+        const codeToken = token as Tokens.Code;
         
         if (validateMermaidCode(codeToken.text)) {
           this.mermaidBlocks.push({

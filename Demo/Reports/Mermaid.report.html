@@ -1,0 +1,1242 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Report - Mermaid</title>
+  <style>
+  body { font-family: 'Segoe UI', sans-serif; background: #f5f7fa; padding: 50px; color: #333; }
+  h1 { text-align: center; color: #1e88e5; margin-bottom: 40px; }
+  
+  /* List Styles */
+  ul { list-style: none; padding: 0; max-width: 600px; margin: 0 auto; }
+  li { background: #fff; margin-bottom: 15px; border-radius: 8px; padding: 15px 20px; border: 1px solid #ddd; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.2s; }
+  li:hover { transform: scale(1.02); }
+  a { text-decoration: none; color: #1e88e5; font-weight: bold; font-size: 1.1rem; display: block; }
+  a:hover { text-decoration: underline; }
+
+  /* Diff Styles */
+  .container { display: flex; flex-direction: column; align-items: center; }
+  .status-badge { padding: 5px 10px; border-radius: 5px; font-size: 0.9rem; color: white; }
+  .status-badge.passed { background-color: #2e7d32; }
+  .status-badge.failed { background-color: #d32f2f; }
+  
+  pre { background: #eef; padding: 10px; border-radius: 5px; overflow-x: auto; }
+  .diff { font-family: monospace; background: #fff; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+  .diff .added { color: #155724; background-color: #d4edda; }
+  .diff .removed { color: #721c24; background-color: #f8d7da; }
+  .diff .unchanged { color: #666; opacity: 0.6; }
+</style>
+</head>
+<body>
+  
+    <h1>Test: Mermaid <span class="status-badge failed">FAILED</span></h1>
+    
+    <h2>Markdown Input</h2>
+    <pre>```mermaid
+flowchart TD
+    Start --&gt; Stop
+```
+
+```mermaid
+sequenceDiagram
+    Alice-&gt;&gt;John: Hello John, how are you?
+    John--&gt;&gt;Alice: Great!
+    Alice-)John: See you later!
+```
+
+```mermaid
+---
+title: Animal example
+---
+classDiagram
+    note "From Duck till Zebra"
+    Animal &lt;|-- Duck
+    note for Duck "can fly\ncan swim\ncan dive\ncan help in debugging"
+    Animal &lt;|-- Fish
+    Animal &lt;|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck{
+        +String beakColor
+        +swim()
+        +quack()
+    }
+    class Fish{
+        -int sizeInFeet
+        -canEat()
+    }
+    class Zebra{
+        +bool is_wild
+        +run()
+    }
+```
+
+```mermaid
+---
+title: Simple sample
+---
+stateDiagram-v2
+    [*] --&gt; Still
+    Still --&gt; [*]
+
+    Still --&gt; Moving
+    Moving --&gt; Still
+    Moving --&gt; Crash
+    Crash --&gt; [*]
+```
+
+```mermaid
+---
+title: Order example
+---
+erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ LINE-ITEM : contains
+    CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
+```
+
+```mermaid
+journey
+    title My working day
+    section Go to work
+      Make tea: 5: Me
+      Go upstairs: 3: Me
+      Do work: 1: Me, Cat
+    section Go home
+      Go downstairs: 5: Me
+      Sit down: 5: Me
+```
+
+```mermaid
+gantt
+    title A Gantt Diagram
+    dateFormat YYYY-MM-DD
+    section Section
+        A task          :a1, 2014-01-01, 30d
+        Another task    :after a1, 20d
+    section Another
+        Task in Another :2014-01-12, 12d
+        another task    :24d
+```
+
+```mermaid
+pie title Pets adopted by volunteers
+    "Dogs" : 386
+    "Cats" : 85
+    "Rats" : 15
+```
+
+```mermaid
+quadrantChart
+    title Reach and engagement of campaigns
+    x-axis Low Reach --&gt; High Reach
+    y-axis Low Engagement --&gt; High Engagement
+    quadrant-1 We should expand
+    quadrant-2 Need to promote
+    quadrant-3 Re-evaluate
+    quadrant-4 May be improved
+    Campaign A: [0.3, 0.6]
+    Campaign B: [0.45, 0.23]
+    Campaign C: [0.57, 0.69]
+    Campaign D: [0.78, 0.34]
+    Campaign E: [0.40, 0.34]
+    Campaign F: [0.35, 0.78]
+```
+
+```mermaid
+    requirementDiagram
+
+    requirement test_req {
+    id: 1
+    text: the test text.
+    risk: high
+    verifymethod: test
+    }
+
+    element test_entity {
+    type: simulation
+    }
+
+    test_entity - satisfies -&gt; test_req
+```
+
+```mermaid
+---
+title: Example Git diagram
+---
+gitGraph
+   commit
+   commit
+   branch develop
+   checkout develop
+   commit
+   commit
+   checkout main
+   merge develop
+   commit
+   commit
+```
+
+```mermaid
+mindmap
+  root((mindmap))
+    Origins
+      Long history
+      ::icon(fa fa-book)
+      Popularisation
+        British popular psychology author Tony Buzan
+    Research
+      On effectiveness&lt;br/&gt;and features
+      On Automatic creation
+        Uses
+            Creative techniques
+            Strategic planning
+            Argument mapping
+    Tools
+      Pen and paper
+      Mermaid
+```
+
+```mermaid
+timeline
+    title History of Social Media Platform
+    2002 : LinkedIn
+    2004 : Facebook
+         : Google
+    2005 : YouTube
+    2006 : Twitter
+```
+
+```mermaid
+zenuml
+    title Demo
+    Alice-&gt;John: Hello John, how are you?
+    John-&gt;Alice: Great!
+    Alice-&gt;John: See you later!
+```
+
+```mermaid
+xychart
+    title "Sales Revenue"
+    x-axis [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]
+    y-axis "Revenue (in $)" 4000 --&gt; 11000
+    bar [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
+    line [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
+```
+
+```mermaid
+block
+columns 1
+  db(("DB"))
+  blockArrowId6&lt;["&amp;nbsp;&amp;nbsp;&amp;nbsp;"]&gt;(down)
+  block:ID
+    A
+    B["A wide one in the middle"]
+    C
+  end
+  space
+  D
+  ID --&gt; D
+  C --&gt; D
+  style B fill:#969,stroke:#333,stroke-width:4px
+```
+
+```mermaid
+---
+title: "TCP Packet"
+---
+packet
+0-15: "Source Port"
+16-31: "Destination Port"
+32-63: "Sequence Number"
+64-95: "Acknowledgment Number"
+96-99: "Data Offset"
+100-105: "Reserved"
+106: "URG"
+107: "ACK"
+108: "PSH"
+109: "RST"
+110: "SYN"
+111: "FIN"
+112-127: "Window"
+128-143: "Checksum"
+144-159: "Urgent Pointer"
+160-191: "(Options and Padding)"
+192-255: "Data (variable length)"
+```
+
+```mermaid
+kanban
+  column1[Column Title]
+    task1[Task Description]
+```
+
+```mermaid
+architecture-beta
+    group api(cloud)[API]
+
+    service db(database)[Database] in api
+    service disk1(disk)[Storage] in api
+    service disk2(disk)[Storage] in api
+    service server(server)[Server] in api
+
+    db:L -- R:server
+    disk1:T -- B:server
+    disk2:T -- B:db
+```
+
+```mermaid
+---
+title: "Grades"
+---
+radar-beta
+  axis m["Math"], s["Science"], e["English"]
+  axis h["History"], g["Geography"], a["Art"]
+  curve a["Alice"]{85, 90, 80, 70, 75, 90}
+  curve b["Bob"]{70, 75, 85, 80, 90, 85}
+
+  max 100
+  min 0
+```
+
+```mermaid
+treemap-beta
+"Category A"
+    "Item A1": 10
+    "Item A2": 20
+"Category B"
+    "Item B1": 15
+    "Item B2": 25
+```</pre>
+
+    <h2>Expected HTML</h2>
+    <pre>&lt;pre&gt;&lt;code class="mermaid"&gt;flowchart TD
+    Start --&amp;gt; Stop
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;sequenceDiagram
+    Alice-&amp;gt;&amp;gt;John: Hello John, how are you?
+    John--&amp;gt;&amp;gt;Alice: Great!
+    Alice-)John: See you later!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;---
+title: Animal example
+---
+classDiagram
+    note &amp;quot;From Duck till Zebra&amp;quot;
+    Animal &amp;lt;|-- Duck
+    note for Duck &amp;quot;can fly\ncan swim\ncan dive\ncan help in debugging&amp;quot;
+    Animal &amp;lt;|-- Fish
+    Animal &amp;lt;|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck{
+        +String beakColor
+        +swim()
+        +quack()
+    }
+    class Fish{
+        -int sizeInFeet
+        -canEat()
+    }
+    class Zebra{
+        +bool is_wild
+        +run()
+    }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;---
+title: Simple sample
+---
+stateDiagram-v2
+    [*] --&amp;gt; Still
+    Still --&amp;gt; [*]
+
+    Still --&amp;gt; Moving
+    Moving --&amp;gt; Still
+    Moving --&amp;gt; Crash
+    Crash --&amp;gt; [*]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;---
+title: Order example
+---
+erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ LINE-ITEM : contains
+    CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;journey
+    title My working day
+    section Go to work
+      Make tea: 5: Me
+      Go upstairs: 3: Me
+      Do work: 1: Me, Cat
+    section Go home
+      Go downstairs: 5: Me
+      Sit down: 5: Me
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;gantt
+    title A Gantt Diagram
+    dateFormat YYYY-MM-DD
+    section Section
+        A task          :a1, 2014-01-01, 30d
+        Another task    :after a1, 20d
+    section Another
+        Task in Another :2014-01-12, 12d
+        another task    :24d
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;pie title Pets adopted by volunteers
+    &amp;quot;Dogs&amp;quot; : 386
+    &amp;quot;Cats&amp;quot; : 85
+    &amp;quot;Rats&amp;quot; : 15
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;quadrantChart
+    title Reach and engagement of campaigns
+    x-axis Low Reach --&amp;gt; High Reach
+    y-axis Low Engagement --&amp;gt; High Engagement
+    quadrant-1 We should expand
+    quadrant-2 Need to promote
+    quadrant-3 Re-evaluate
+    quadrant-4 May be improved
+    Campaign A: [0.3, 0.6]
+    Campaign B: [0.45, 0.23]
+    Campaign C: [0.57, 0.69]
+    Campaign D: [0.78, 0.34]
+    Campaign E: [0.40, 0.34]
+    Campaign F: [0.35, 0.78]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;    requirementDiagram
+
+    requirement test_req {
+    id: 1
+    text: the test text.
+    risk: high
+    verifymethod: test
+    }
+
+    element test_entity {
+    type: simulation
+    }
+
+    test_entity - satisfies -&amp;gt; test_req
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;---
+title: Example Git diagram
+---
+gitGraph
+   commit
+   commit
+   branch develop
+   checkout develop
+   commit
+   commit
+   checkout main
+   merge develop
+   commit
+   commit
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;mindmap
+  root((mindmap))
+    Origins
+      Long history
+      ::icon(fa fa-book)
+      Popularisation
+        British popular psychology author Tony Buzan
+    Research
+      On effectiveness&amp;lt;br/&amp;gt;and features
+      On Automatic creation
+        Uses
+            Creative techniques
+            Strategic planning
+            Argument mapping
+    Tools
+      Pen and paper
+      Mermaid
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;timeline
+    title History of Social Media Platform
+    2002 : LinkedIn
+    2004 : Facebook
+         : Google
+    2005 : YouTube
+    2006 : Twitter
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;zenuml
+    title Demo
+    Alice-&amp;gt;John: Hello John, how are you?
+    John-&amp;gt;Alice: Great!
+    Alice-&amp;gt;John: See you later!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;xychart
+    title &amp;quot;Sales Revenue&amp;quot;
+    x-axis [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]
+    y-axis &amp;quot;Revenue (in $)&amp;quot; 4000 --&amp;gt; 11000
+    bar [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
+    line [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;block
+columns 1
+  db((&amp;quot;DB&amp;quot;))
+  blockArrowId6&amp;lt;[&amp;quot;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;quot;]&amp;gt;(down)
+  block:ID
+    A
+    B[&amp;quot;A wide one in the middle&amp;quot;]
+    C
+  end
+  space
+  D
+  ID --&amp;gt; D
+  C --&amp;gt; D
+  style B fill:#969,stroke:#333,stroke-width:4px
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;---
+title: &amp;quot;TCP Packet&amp;quot;
+---
+packet
+0-15: &amp;quot;Source Port&amp;quot;
+16-31: &amp;quot;Destination Port&amp;quot;
+32-63: &amp;quot;Sequence Number&amp;quot;
+64-95: &amp;quot;Acknowledgment Number&amp;quot;
+96-99: &amp;quot;Data Offset&amp;quot;
+100-105: &amp;quot;Reserved&amp;quot;
+106: &amp;quot;URG&amp;quot;
+107: &amp;quot;ACK&amp;quot;
+108: &amp;quot;PSH&amp;quot;
+109: &amp;quot;RST&amp;quot;
+110: &amp;quot;SYN&amp;quot;
+111: &amp;quot;FIN&amp;quot;
+112-127: &amp;quot;Window&amp;quot;
+128-143: &amp;quot;Checksum&amp;quot;
+144-159: &amp;quot;Urgent Pointer&amp;quot;
+160-191: &amp;quot;(Options and Padding)&amp;quot;
+192-255: &amp;quot;Data (variable length)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;kanban
+  column1[Column Title]
+    task1[Task Description]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;architecture-beta
+    group api(cloud)[API]
+
+    service db(database)[Database] in api
+    service disk1(disk)[Storage] in api
+    service disk2(disk)[Storage] in api
+    service server(server)[Server] in api
+
+    db:L -- R:server
+    disk1:T -- B:server
+    disk2:T -- B:db
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;---
+title: &amp;quot;Grades&amp;quot;
+---
+radar-beta
+  axis m[&amp;quot;Math&amp;quot;], s[&amp;quot;Science&amp;quot;], e[&amp;quot;English&amp;quot;]
+  axis h[&amp;quot;History&amp;quot;], g[&amp;quot;Geography&amp;quot;], a[&amp;quot;Art&amp;quot;]
+  curve a[&amp;quot;Alice&amp;quot;]{85, 90, 80, 70, 75, 90}
+  curve b[&amp;quot;Bob&amp;quot;]{70, 75, 85, 80, 90, 85}
+
+  max 100
+  min 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="mermaid"&gt;treemap-beta
+&amp;quot;Category A&amp;quot;
+    &amp;quot;Item A1&amp;quot;: 10
+    &amp;quot;Item A2&amp;quot;: 20
+&amp;quot;Category B&amp;quot;
+    &amp;quot;Item B1&amp;quot;: 15
+    &amp;quot;Item B2&amp;quot;: 25
+&lt;/code&gt;&lt;/pre&gt;</pre>
+
+    <h2>Actual HTML</h2>
+    <pre>&lt;div class="mermaid-container" data-diagram-type="flowchart"&gt;
+  &lt;pre class="mermaid" id="mermaid-diagram-0-1769042719408"&gt;flowchart TD
+    Start --&amp;gt; Stop&lt;/pre&gt;
+&lt;/div&gt;&lt;div class="mermaid-container" data-diagram-type="sequencediagram"&gt;
+  &lt;pre class="mermaid" id="mermaid-diagram-1-1769042719408"&gt;sequenceDiagram
+    Alice-&amp;gt;&amp;gt;John: Hello John, how are you?
+    John--&amp;gt;&amp;gt;Alice: Great!
+    Alice-)John: See you later!&lt;/pre&gt;
+&lt;/div&gt;&lt;div class="mermaid-container" data-diagram-type="journey"&gt;
+  &lt;pre class="mermaid" id="mermaid-diagram-2-1769042719408"&gt;journey
+    title My working day
+    section Go to work
+      Make tea: 5: Me
+      Go upstairs: 3: Me
+      Do work: 1: Me, Cat
+    section Go home
+      Go downstairs: 5: Me
+      Sit down: 5: Me&lt;/pre&gt;
+&lt;/div&gt;&lt;div class="mermaid-container" data-diagram-type="gantt"&gt;
+  &lt;pre class="mermaid" id="mermaid-diagram-3-1769042719408"&gt;gantt
+    title A Gantt Diagram
+    dateFormat YYYY-MM-DD
+    section Section
+        A task          :a1, 2014-01-01, 30d
+        Another task    :after a1, 20d
+    section Another
+        Task in Another :2014-01-12, 12d
+        another task    :24d&lt;/pre&gt;
+&lt;/div&gt;&lt;div class="mermaid-container" data-diagram-type="pie"&gt;
+  &lt;pre class="mermaid" id="mermaid-diagram-4-1769042719408"&gt;pie title Pets adopted by volunteers
+    "Dogs" : 386
+    "Cats" : 85
+    "Rats" : 15&lt;/pre&gt;
+&lt;/div&gt;&lt;div class="mermaid-container" data-diagram-type="mindmap"&gt;
+  &lt;pre class="mermaid" id="mermaid-diagram-5-1769042719408"&gt;mindmap
+  root((mindmap))
+    Origins
+      Long history
+      ::icon(fa fa-book)
+      Popularisation
+        British popular psychology author Tony Buzan
+    Research
+      On effectiveness&amp;lt;br/&amp;gt;and features
+      On Automatic creation
+        Uses
+            Creative techniques
+            Strategic planning
+            Argument mapping
+    Tools
+      Pen and paper
+      Mermaid&lt;/pre&gt;
+&lt;/div&gt;&lt;div class="mermaid-container" data-diagram-type="timeline"&gt;
+  &lt;pre class="mermaid" id="mermaid-diagram-6-1769042719408"&gt;timeline
+    title History of Social Media Platform
+    2002 : LinkedIn
+    2004 : Facebook
+         : Google
+    2005 : YouTube
+    2006 : Twitter&lt;/pre&gt;
+&lt;/div&gt;&lt;pre&gt;&lt;code class="language-mermaid"&gt;pie title Pets adopted by volunteers
+    &amp;quot;Dogs&amp;quot; : 386
+    &amp;quot;Cats&amp;quot; : 85
+    &amp;quot;Rats&amp;quot; : 15
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-mermaid"&gt;quadrantChart
+    title Reach and engagement of campaigns
+    x-axis Low Reach --&amp;gt; High Reach
+    y-axis Low Engagement --&amp;gt; High Engagement
+    quadrant-1 We should expand
+    quadrant-2 Need to promote
+    quadrant-3 Re-evaluate
+    quadrant-4 May be improved
+    Campaign A: [0.3, 0.6]
+    Campaign B: [0.45, 0.23]
+    Campaign C: [0.57, 0.69]
+    Campaign D: [0.78, 0.34]
+    Campaign E: [0.40, 0.34]
+    Campaign F: [0.35, 0.78]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-mermaid"&gt;    requirementDiagram
+
+    requirement test_req {
+    id: 1
+    text: the test text.
+    risk: high
+    verifymethod: test
+    }
+
+    element test_entity {
+    type: simulation
+    }
+
+    test_entity - satisfies -&amp;gt; test_req
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-mermaid"&gt;---
+title: Example Git diagram
+---
+gitGraph
+   commit
+   commit
+   branch develop
+   checkout develop
+   commit
+   commit
+   checkout main
+   merge develop
+   commit
+   commit
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-mermaid"&gt;mindmap
+  root((mindmap))
+    Origins
+      Long history
+      ::icon(fa fa-book)
+      Popularisation
+        British popular psychology author Tony Buzan
+    Research
+      On effectiveness&amp;lt;br/&amp;gt;and features
+      On Automatic creation
+        Uses
+            Creative techniques
+            Strategic planning
+            Argument mapping
+    Tools
+      Pen and paper
+      Mermaid
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-mermaid"&gt;timeline
+    title History of Social Media Platform
+    2002 : LinkedIn
+    2004 : Facebook
+         : Google
+    2005 : YouTube
+    2006 : Twitter
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-mermaid"&gt;zenuml
+    title Demo
+    Alice-&amp;gt;John: Hello John, how are you?
+    John-&amp;gt;Alice: Great!
+    Alice-&amp;gt;John: See you later!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-mermaid"&gt;xychart
+    title &amp;quot;Sales Revenue&amp;quot;
+    x-axis [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]
+    y-axis &amp;quot;Revenue (in $)&amp;quot; 4000 --&amp;gt; 11000
+    bar [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
+    line [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-mermaid"&gt;block
+columns 1
+  db((&amp;quot;DB&amp;quot;))
+  blockArrowId6&amp;lt;[&amp;quot;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;quot;]&amp;gt;(down)
+  block:ID
+    A
+    B[&amp;quot;A wide one in the middle&amp;quot;]
+    C
+  end
+  space
+  D
+  ID --&amp;gt; D
+  C --&amp;gt; D
+  style B fill:#969,stroke:#333,stroke-width:4px
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-mermaid"&gt;---
+title: &amp;quot;TCP Packet&amp;quot;
+---
+packet
+0-15: &amp;quot;Source Port&amp;quot;
+16-31: &amp;quot;Destination Port&amp;quot;
+32-63: &amp;quot;Sequence Number&amp;quot;
+64-95: &amp;quot;Acknowledgment Number&amp;quot;
+96-99: &amp;quot;Data Offset&amp;quot;
+100-105: &amp;quot;Reserved&amp;quot;
+106: &amp;quot;URG&amp;quot;
+107: &amp;quot;ACK&amp;quot;
+108: &amp;quot;PSH&amp;quot;
+109: &amp;quot;RST&amp;quot;
+110: &amp;quot;SYN&amp;quot;
+111: &amp;quot;FIN&amp;quot;
+112-127: &amp;quot;Window&amp;quot;
+128-143: &amp;quot;Checksum&amp;quot;
+144-159: &amp;quot;Urgent Pointer&amp;quot;
+160-191: &amp;quot;(Options and Padding)&amp;quot;
+192-255: &amp;quot;Data (variable length)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-mermaid"&gt;kanban
+  column1[Column Title]
+    task1[Task Description]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-mermaid"&gt;architecture-beta
+    group api(cloud)[API]
+
+    service db(database)[Database] in api
+    service disk1(disk)[Storage] in api
+    service disk2(disk)[Storage] in api
+    service server(server)[Server] in api
+
+    db:L -- R:server
+    disk1:T -- B:server
+    disk2:T -- B:db
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-mermaid"&gt;---
+title: &amp;quot;Grades&amp;quot;
+---
+radar-beta
+  axis m[&amp;quot;Math&amp;quot;], s[&amp;quot;Science&amp;quot;], e[&amp;quot;English&amp;quot;]
+  axis h[&amp;quot;History&amp;quot;], g[&amp;quot;Geography&amp;quot;], a[&amp;quot;Art&amp;quot;]
+  curve a[&amp;quot;Alice&amp;quot;]{85, 90, 80, 70, 75, 90}
+  curve b[&amp;quot;Bob&amp;quot;]{70, 75, 85, 80, 90, 85}
+
+  max 100
+  min 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-mermaid"&gt;treemap-beta
+&amp;quot;Category A&amp;quot;
+    &amp;quot;Item A1&amp;quot;: 10
+    &amp;quot;Item A2&amp;quot;: 20
+&amp;quot;Category B&amp;quot;
+    &amp;quot;Item B1&amp;quot;: 15
+    &amp;quot;Item B2&amp;quot;: 25
+&lt;/code&gt;&lt;/pre&gt;
+</pre>
+    
+    <h2>Diff</h2>
+    <div class="diff">
+    <div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;flowchart TD</div>
+<div class="added">+ &lt;div class="mermaid-container" data-diagram-type="flowchart"&gt;</div>
+<div class="removed">-     Start --&amp;gt; Stop</div>
+<div class="added">+   &lt;pre class="mermaid" id="mermaid-diagram-0-1769042719408"&gt;flowchart TD</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+     Start --&amp;gt; Stop&lt;/pre&gt;</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;sequenceDiagram</div>
+<div class="added">+ &lt;/div&gt;&lt;div class="mermaid-container" data-diagram-type="sequencediagram"&gt;</div>
+<div class="removed">-     Alice-&amp;gt;&amp;gt;John: Hello John, how are you?</div>
+<div class="added">+   &lt;pre class="mermaid" id="mermaid-diagram-1-1769042719408"&gt;sequenceDiagram</div>
+<div class="removed">-     John--&amp;gt;&amp;gt;Alice: Great!</div>
+<div class="added">+     Alice-&amp;gt;&amp;gt;John: Hello John, how are you?</div>
+<div class="removed">-     Alice-)John: See you later!</div>
+<div class="added">+     John--&amp;gt;&amp;gt;Alice: Great!</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+     Alice-)John: See you later!&lt;/pre&gt;</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;---</div>
+<div class="added">+ &lt;/div&gt;&lt;div class="mermaid-container" data-diagram-type="journey"&gt;</div>
+<div class="removed">- title: Animal example</div>
+<div class="added">+   &lt;pre class="mermaid" id="mermaid-diagram-2-1769042719408"&gt;journey</div>
+<div class="removed">- ---</div>
+<div class="added">+     title My working day</div>
+<div class="removed">- classDiagram</div>
+<div class="added">+     section Go to work</div>
+<div class="removed">-     note &amp;quot;From Duck till Zebra&amp;quot;</div>
+<div class="added">+       Make tea: 5: Me</div>
+<div class="removed">-     Animal &amp;lt;|-- Duck</div>
+<div class="added">+       Go upstairs: 3: Me</div>
+<div class="removed">-     note for Duck &amp;quot;can fly\ncan swim\ncan dive\ncan help in debugging&amp;quot;</div>
+<div class="added">+       Do work: 1: Me, Cat</div>
+<div class="removed">-     Animal &amp;lt;|-- Fish</div>
+<div class="added">+     section Go home</div>
+<div class="removed">-     Animal &amp;lt;|-- Zebra</div>
+<div class="added">+       Go downstairs: 5: Me</div>
+<div class="removed">-     Animal : +int age</div>
+<div class="added">+       Sit down: 5: Me&lt;/pre&gt;</div>
+<div class="removed">-     Animal : +String gender</div>
+<div class="added">+ &lt;/div&gt;&lt;div class="mermaid-container" data-diagram-type="gantt"&gt;</div>
+<div class="removed">-     Animal: +isMammal()</div>
+<div class="added">+   &lt;pre class="mermaid" id="mermaid-diagram-3-1769042719408"&gt;gantt</div>
+<div class="removed">-     Animal: +mate()</div>
+<div class="added">+     title A Gantt Diagram</div>
+<div class="removed">-     class Duck{</div>
+<div class="added">+     dateFormat YYYY-MM-DD</div>
+<div class="removed">-         +String beakColor</div>
+<div class="added">+     section Section</div>
+<div class="removed">-         +swim()</div>
+<div class="added">+         A task          :a1, 2014-01-01, 30d</div>
+<div class="removed">-         +quack()</div>
+<div class="added">+         Another task    :after a1, 20d</div>
+<div class="removed">-     }</div>
+<div class="added">+     section Another</div>
+<div class="removed">-     class Fish{</div>
+<div class="added">+         Task in Another :2014-01-12, 12d</div>
+<div class="removed">-         -int sizeInFeet</div>
+<div class="added">+         another task    :24d&lt;/pre&gt;</div>
+<div class="removed">-         -canEat()</div>
+<div class="added">+ &lt;/div&gt;&lt;div class="mermaid-container" data-diagram-type="pie"&gt;</div>
+<div class="removed">-     }</div>
+<div class="added">+   &lt;pre class="mermaid" id="mermaid-diagram-4-1769042719408"&gt;pie title Pets adopted by volunteers</div>
+<div class="removed">-     class Zebra{</div>
+<div class="added">+     "Dogs" : 386</div>
+<div class="removed">-         +bool is_wild</div>
+<div class="added">+     "Cats" : 85</div>
+<div class="removed">-         +run()</div>
+<div class="added">+     "Rats" : 15&lt;/pre&gt;</div>
+<div class="removed">-     }</div>
+<div class="added">+ &lt;/div&gt;&lt;div class="mermaid-container" data-diagram-type="mindmap"&gt;</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+   &lt;pre class="mermaid" id="mermaid-diagram-5-1769042719408"&gt;mindmap</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;---</div>
+<div class="added">+   root((mindmap))</div>
+<div class="removed">- title: Simple sample</div>
+<div class="added">+     Origins</div>
+<div class="removed">- ---</div>
+<div class="added">+       Long history</div>
+<div class="removed">- stateDiagram-v2</div>
+<div class="added">+       ::icon(fa fa-book)</div>
+<div class="removed">-     [*] --&amp;gt; Still</div>
+<div class="added">+       Popularisation</div>
+<div class="removed">-     Still --&amp;gt; [*]</div>
+<div class="added">+         British popular psychology author Tony Buzan</div>
+<div class="removed">- </div>
+<div class="added">+     Research</div>
+<div class="removed">-     Still --&amp;gt; Moving</div>
+<div class="added">+       On effectiveness&amp;lt;br/&amp;gt;and features</div>
+<div class="removed">-     Moving --&amp;gt; Still</div>
+<div class="added">+       On Automatic creation</div>
+<div class="removed">-     Moving --&amp;gt; Crash</div>
+<div class="added">+         Uses</div>
+<div class="removed">-     Crash --&amp;gt; [*]</div>
+<div class="added">+             Creative techniques</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+             Strategic planning</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;---</div>
+<div class="added">+             Argument mapping</div>
+<div class="removed">- title: Order example</div>
+<div class="added">+     Tools</div>
+<div class="removed">- ---</div>
+<div class="added">+       Pen and paper</div>
+<div class="removed">- erDiagram</div>
+<div class="added">+       Mermaid&lt;/pre&gt;</div>
+<div class="removed">-     CUSTOMER ||--o{ ORDER : places</div>
+<div class="added">+ &lt;/div&gt;&lt;div class="mermaid-container" data-diagram-type="timeline"&gt;</div>
+<div class="removed">-     ORDER ||--|{ LINE-ITEM : contains</div>
+<div class="added">+   &lt;pre class="mermaid" id="mermaid-diagram-6-1769042719408"&gt;timeline</div>
+<div class="removed">-     CUSTOMER }|..|{ DELIVERY-ADDRESS : uses</div>
+<div class="added">+     title History of Social Media Platform</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+     2002 : LinkedIn</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;journey</div>
+<div class="added">+     2004 : Facebook</div>
+<div class="removed">-     title My working day</div>
+<div class="added">+          : Google</div>
+<div class="removed">-     section Go to work</div>
+<div class="added">+     2005 : YouTube</div>
+<div class="removed">-       Make tea: 5: Me</div>
+<div class="added">+     2006 : Twitter&lt;/pre&gt;</div>
+<div class="removed">-       Go upstairs: 3: Me</div>
+<div class="added">+ &lt;/div&gt;&lt;pre&gt;&lt;code class="language-mermaid"&gt;pie title Pets adopted by volunteers</div>
+<div class="removed">-       Do work: 1: Me, Cat</div>
+<div class="added">+     &amp;quot;Dogs&amp;quot; : 386</div>
+<div class="removed">-     section Go home</div>
+<div class="added">+     &amp;quot;Cats&amp;quot; : 85</div>
+<div class="removed">-       Go downstairs: 5: Me</div>
+<div class="added">+     &amp;quot;Rats&amp;quot; : 15</div>
+<div class="removed">-       Sit down: 5: Me</div>
+<div class="added">+ &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+ &lt;pre&gt;&lt;code class="language-mermaid"&gt;quadrantChart</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;gantt</div>
+<div class="added">+     title Reach and engagement of campaigns</div>
+<div class="removed">-     title A Gantt Diagram</div>
+<div class="added">+     x-axis Low Reach --&amp;gt; High Reach</div>
+<div class="removed">-     dateFormat YYYY-MM-DD</div>
+<div class="added">+     y-axis Low Engagement --&amp;gt; High Engagement</div>
+<div class="removed">-     section Section</div>
+<div class="added">+     quadrant-1 We should expand</div>
+<div class="removed">-         A task          :a1, 2014-01-01, 30d</div>
+<div class="added">+     quadrant-2 Need to promote</div>
+<div class="removed">-         Another task    :after a1, 20d</div>
+<div class="added">+     quadrant-3 Re-evaluate</div>
+<div class="removed">-     section Another</div>
+<div class="added">+     quadrant-4 May be improved</div>
+<div class="removed">-         Task in Another :2014-01-12, 12d</div>
+<div class="added">+     Campaign A: [0.3, 0.6]</div>
+<div class="removed">-         another task    :24d</div>
+<div class="added">+     Campaign B: [0.45, 0.23]</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+     Campaign C: [0.57, 0.69]</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;pie title Pets adopted by volunteers</div>
+<div class="added">+     Campaign D: [0.78, 0.34]</div>
+<div class="removed">-     &amp;quot;Dogs&amp;quot; : 386</div>
+<div class="added">+     Campaign E: [0.40, 0.34]</div>
+<div class="removed">-     &amp;quot;Cats&amp;quot; : 85</div>
+<div class="added">+     Campaign F: [0.35, 0.78]</div>
+<div class="removed">-     &amp;quot;Rats&amp;quot; : 15</div>
+<div class="added">+ &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+ &lt;pre&gt;&lt;code class="language-mermaid"&gt;    requirementDiagram</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;quadrantChart</div>
+<div class="added">+ </div>
+<div class="removed">-     title Reach and engagement of campaigns</div>
+<div class="added">+     requirement test_req {</div>
+<div class="removed">-     x-axis Low Reach --&amp;gt; High Reach</div>
+<div class="added">+     id: 1</div>
+<div class="removed">-     y-axis Low Engagement --&amp;gt; High Engagement</div>
+<div class="added">+     text: the test text.</div>
+<div class="removed">-     quadrant-1 We should expand</div>
+<div class="added">+     risk: high</div>
+<div class="removed">-     quadrant-2 Need to promote</div>
+<div class="added">+     verifymethod: test</div>
+<div class="removed">-     quadrant-3 Re-evaluate</div>
+<div class="added">+     }</div>
+<div class="removed">-     quadrant-4 May be improved</div>
+<div class="added">+ </div>
+<div class="removed">-     Campaign A: [0.3, 0.6]</div>
+<div class="added">+     element test_entity {</div>
+<div class="removed">-     Campaign B: [0.45, 0.23]</div>
+<div class="added">+     type: simulation</div>
+<div class="removed">-     Campaign C: [0.57, 0.69]</div>
+<div class="added">+     }</div>
+<div class="removed">-     Campaign D: [0.78, 0.34]</div>
+<div class="added">+ </div>
+<div class="removed">-     Campaign E: [0.40, 0.34]</div>
+<div class="added">+     test_entity - satisfies -&amp;gt; test_req</div>
+<div class="removed">-     Campaign F: [0.35, 0.78]</div>
+<div class="added">+ &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+ &lt;pre&gt;&lt;code class="language-mermaid"&gt;---</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;    requirementDiagram</div>
+<div class="added">+ title: Example Git diagram</div>
+<div class="removed">- </div>
+<div class="added">+ ---</div>
+<div class="removed">-     requirement test_req {</div>
+<div class="added">+ gitGraph</div>
+<div class="removed">-     id: 1</div>
+<div class="added">+    commit</div>
+<div class="removed">-     text: the test text.</div>
+<div class="added">+    commit</div>
+<div class="removed">-     risk: high</div>
+<div class="added">+    branch develop</div>
+<div class="removed">-     verifymethod: test</div>
+<div class="added">+    checkout develop</div>
+<div class="removed">-     }</div>
+<div class="added">+    commit</div>
+<div class="removed">- </div>
+<div class="added">+    commit</div>
+<div class="removed">-     element test_entity {</div>
+<div class="added">+    checkout main</div>
+<div class="removed">-     type: simulation</div>
+<div class="added">+    merge develop</div>
+<div class="removed">-     }</div>
+<div class="added">+    commit</div>
+<div class="removed">- </div>
+<div class="added">+    commit</div>
+<div class="removed">-     test_entity - satisfies -&amp;gt; test_req</div>
+<div class="added">+ &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+ &lt;pre&gt;&lt;code class="language-mermaid"&gt;mindmap</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;---</div>
+<div class="added">+   root((mindmap))</div>
+<div class="removed">- title: Example Git diagram</div>
+<div class="added">+     Origins</div>
+<div class="removed">- ---</div>
+<div class="added">+       Long history</div>
+<div class="removed">- gitGraph</div>
+<div class="added">+       ::icon(fa fa-book)</div>
+<div class="removed">-    commit</div>
+<div class="added">+       Popularisation</div>
+<div class="removed">-    commit</div>
+<div class="added">+         British popular psychology author Tony Buzan</div>
+<div class="removed">-    branch develop</div>
+<div class="added">+     Research</div>
+<div class="removed">-    checkout develop</div>
+<div class="added">+       On effectiveness&amp;lt;br/&amp;gt;and features</div>
+<div class="removed">-    commit</div>
+<div class="added">+       On Automatic creation</div>
+<div class="removed">-    commit</div>
+<div class="added">+         Uses</div>
+<div class="removed">-    checkout main</div>
+<div class="added">+             Creative techniques</div>
+<div class="removed">-    merge develop</div>
+<div class="added">+             Strategic planning</div>
+<div class="removed">-    commit</div>
+<div class="added">+             Argument mapping</div>
+<div class="removed">-    commit</div>
+<div class="added">+     Tools</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+       Pen and paper</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;mindmap</div>
+<div class="added">+       Mermaid</div>
+<div class="removed">-   root((mindmap))</div>
+<div class="added">+ &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="removed">-     Origins</div>
+<div class="added">+ &lt;pre&gt;&lt;code class="language-mermaid"&gt;timeline</div>
+<div class="removed">-       Long history</div>
+<div class="added">+     title History of Social Media Platform</div>
+<div class="removed">-       ::icon(fa fa-book)</div>
+<div class="added">+     2002 : LinkedIn</div>
+<div class="removed">-       Popularisation</div>
+<div class="added">+     2004 : Facebook</div>
+<div class="removed">-         British popular psychology author Tony Buzan</div>
+<div class="added">+          : Google</div>
+<div class="removed">-     Research</div>
+<div class="added">+     2005 : YouTube</div>
+<div class="removed">-       On effectiveness&amp;lt;br/&amp;gt;and features</div>
+<div class="added">+     2006 : Twitter</div>
+<div class="removed">-       On Automatic creation</div>
+<div class="added">+ &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="removed">-         Uses</div>
+<div class="added">+ &lt;pre&gt;&lt;code class="language-mermaid"&gt;zenuml</div>
+<div class="removed">-             Creative techniques</div>
+<div class="added">+     title Demo</div>
+<div class="removed">-             Strategic planning</div>
+<div class="added">+     Alice-&amp;gt;John: Hello John, how are you?</div>
+<div class="removed">-             Argument mapping</div>
+<div class="added">+     John-&amp;gt;Alice: Great!</div>
+<div class="removed">-     Tools</div>
+<div class="added">+     Alice-&amp;gt;John: See you later!</div>
+<div class="removed">-       Pen and paper</div>
+<div class="added">+ &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="removed">-       Mermaid</div>
+<div class="added">+ &lt;pre&gt;&lt;code class="language-mermaid"&gt;xychart</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+     title &amp;quot;Sales Revenue&amp;quot;</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;timeline</div>
+<div class="added">+     x-axis [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]</div>
+<div class="removed">-     title History of Social Media Platform</div>
+<div class="added">+     y-axis &amp;quot;Revenue (in $)&amp;quot; 4000 --&amp;gt; 11000</div>
+<div class="removed">-     2002 : LinkedIn</div>
+<div class="added">+     bar [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]</div>
+<div class="removed">-     2004 : Facebook</div>
+<div class="added">+     line [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]</div>
+<div class="removed">-          : Google</div>
+<div class="added">+ &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="removed">-     2005 : YouTube</div>
+<div class="added">+ &lt;pre&gt;&lt;code class="language-mermaid"&gt;block</div>
+<div class="removed">-     2006 : Twitter</div>
+<div class="added">+ columns 1</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+   db((&amp;quot;DB&amp;quot;))</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;zenuml</div>
+<div class="added">+   blockArrowId6&amp;lt;[&amp;quot;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;quot;]&amp;gt;(down)</div>
+<div class="removed">-     title Demo</div>
+<div class="added">+   block:ID</div>
+<div class="removed">-     Alice-&amp;gt;John: Hello John, how are you?</div>
+<div class="added">+     A</div>
+<div class="removed">-     John-&amp;gt;Alice: Great!</div>
+<div class="added">+     B[&amp;quot;A wide one in the middle&amp;quot;]</div>
+<div class="removed">-     Alice-&amp;gt;John: See you later!</div>
+<div class="added">+     C</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+   end</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;xychart</div>
+<div class="added">+   space</div>
+<div class="removed">-     title &amp;quot;Sales Revenue&amp;quot;</div>
+<div class="added">+   D</div>
+<div class="removed">-     x-axis [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]</div>
+<div class="added">+   ID --&amp;gt; D</div>
+<div class="removed">-     y-axis &amp;quot;Revenue (in $)&amp;quot; 4000 --&amp;gt; 11000</div>
+<div class="added">+   C --&amp;gt; D</div>
+<div class="removed">-     bar [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]</div>
+<div class="added">+   style B fill:#969,stroke:#333,stroke-width:4px</div>
+<div class="removed">-     line [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]</div>
+<div class="added">+ &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+ &lt;pre&gt;&lt;code class="language-mermaid"&gt;---</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;block</div>
+<div class="added">+ title: &amp;quot;TCP Packet&amp;quot;</div>
+<div class="removed">- columns 1</div>
+<div class="added">+ ---</div>
+<div class="removed">-   db((&amp;quot;DB&amp;quot;))</div>
+<div class="added">+ packet</div>
+<div class="removed">-   blockArrowId6&amp;lt;[&amp;quot;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;quot;]&amp;gt;(down)</div>
+<div class="added">+ 0-15: &amp;quot;Source Port&amp;quot;</div>
+<div class="removed">-   block:ID</div>
+<div class="added">+ 16-31: &amp;quot;Destination Port&amp;quot;</div>
+<div class="removed">-     A</div>
+<div class="added">+ 32-63: &amp;quot;Sequence Number&amp;quot;</div>
+<div class="removed">-     B[&amp;quot;A wide one in the middle&amp;quot;]</div>
+<div class="added">+ 64-95: &amp;quot;Acknowledgment Number&amp;quot;</div>
+<div class="removed">-     C</div>
+<div class="added">+ 96-99: &amp;quot;Data Offset&amp;quot;</div>
+<div class="removed">-   end</div>
+<div class="added">+ 100-105: &amp;quot;Reserved&amp;quot;</div>
+<div class="removed">-   space</div>
+<div class="added">+ 106: &amp;quot;URG&amp;quot;</div>
+<div class="removed">-   D</div>
+<div class="added">+ 107: &amp;quot;ACK&amp;quot;</div>
+<div class="removed">-   ID --&amp;gt; D</div>
+<div class="added">+ 108: &amp;quot;PSH&amp;quot;</div>
+<div class="removed">-   C --&amp;gt; D</div>
+<div class="added">+ 109: &amp;quot;RST&amp;quot;</div>
+<div class="removed">-   style B fill:#969,stroke:#333,stroke-width:4px</div>
+<div class="added">+ 110: &amp;quot;SYN&amp;quot;</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+ 111: &amp;quot;FIN&amp;quot;</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;---</div>
+<div class="added">+ 112-127: &amp;quot;Window&amp;quot;</div>
+<div class="removed">- title: &amp;quot;TCP Packet&amp;quot;</div>
+<div class="added">+ 128-143: &amp;quot;Checksum&amp;quot;</div>
+<div class="removed">- ---</div>
+<div class="added">+ 144-159: &amp;quot;Urgent Pointer&amp;quot;</div>
+<div class="removed">- packet</div>
+<div class="added">+ 160-191: &amp;quot;(Options and Padding)&amp;quot;</div>
+<div class="removed">- 0-15: &amp;quot;Source Port&amp;quot;</div>
+<div class="added">+ 192-255: &amp;quot;Data (variable length)&amp;quot;</div>
+<div class="removed">- 16-31: &amp;quot;Destination Port&amp;quot;</div>
+<div class="added">+ &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="removed">- 32-63: &amp;quot;Sequence Number&amp;quot;</div>
+<div class="added">+ &lt;pre&gt;&lt;code class="language-mermaid"&gt;kanban</div>
+<div class="removed">- 64-95: &amp;quot;Acknowledgment Number&amp;quot;</div>
+<div class="added">+   column1[Column Title]</div>
+<div class="removed">- 96-99: &amp;quot;Data Offset&amp;quot;</div>
+<div class="added">+     task1[Task Description]</div>
+<div class="removed">- 100-105: &amp;quot;Reserved&amp;quot;</div>
+<div class="added">+ &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="removed">- 106: &amp;quot;URG&amp;quot;</div>
+<div class="added">+ &lt;pre&gt;&lt;code class="language-mermaid"&gt;architecture-beta</div>
+<div class="removed">- 107: &amp;quot;ACK&amp;quot;</div>
+<div class="added">+     group api(cloud)[API]</div>
+<div class="removed">- 108: &amp;quot;PSH&amp;quot;</div>
+<div class="added">+ </div>
+<div class="removed">- 109: &amp;quot;RST&amp;quot;</div>
+<div class="added">+     service db(database)[Database] in api</div>
+<div class="removed">- 110: &amp;quot;SYN&amp;quot;</div>
+<div class="added">+     service disk1(disk)[Storage] in api</div>
+<div class="removed">- 111: &amp;quot;FIN&amp;quot;</div>
+<div class="added">+     service disk2(disk)[Storage] in api</div>
+<div class="removed">- 112-127: &amp;quot;Window&amp;quot;</div>
+<div class="added">+     service server(server)[Server] in api</div>
+<div class="removed">- 128-143: &amp;quot;Checksum&amp;quot;</div>
+<div class="added">+ </div>
+<div class="removed">- 144-159: &amp;quot;Urgent Pointer&amp;quot;</div>
+<div class="added">+     db:L -- R:server</div>
+<div class="removed">- 160-191: &amp;quot;(Options and Padding)&amp;quot;</div>
+<div class="added">+     disk1:T -- B:server</div>
+<div class="removed">- 192-255: &amp;quot;Data (variable length)&amp;quot;</div>
+<div class="added">+     disk2:T -- B:db</div>
+<div class="unchanged">&lt;/code&gt;&lt;/pre&gt;</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;kanban</div>
+<div class="added">+ &lt;pre&gt;&lt;code class="language-mermaid"&gt;---</div>
+<div class="removed">-   column1[Column Title]</div>
+<div class="added">+ title: &amp;quot;Grades&amp;quot;</div>
+<div class="removed">-     task1[Task Description]</div>
+<div class="added">+ ---</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+ radar-beta</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;architecture-beta</div>
+<div class="added">+   axis m[&amp;quot;Math&amp;quot;], s[&amp;quot;Science&amp;quot;], e[&amp;quot;English&amp;quot;]</div>
+<div class="removed">-     group api(cloud)[API]</div>
+<div class="added">+   axis h[&amp;quot;History&amp;quot;], g[&amp;quot;Geography&amp;quot;], a[&amp;quot;Art&amp;quot;]</div>
+<div class="removed">- </div>
+<div class="added">+   curve a[&amp;quot;Alice&amp;quot;]{85, 90, 80, 70, 75, 90}</div>
+<div class="removed">-     service db(database)[Database] in api</div>
+<div class="added">+   curve b[&amp;quot;Bob&amp;quot;]{70, 75, 85, 80, 90, 85}</div>
+<div class="removed">-     service disk1(disk)[Storage] in api</div>
+<div class="added">+ </div>
+<div class="removed">-     service disk2(disk)[Storage] in api</div>
+<div class="added">+   max 100</div>
+<div class="removed">-     service server(server)[Server] in api</div>
+<div class="added">+   min 0</div>
+<div class="removed">- </div>
+<div class="added">+ &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="removed">-     db:L -- R:server</div>
+<div class="added">+ &lt;pre&gt;&lt;code class="language-mermaid"&gt;treemap-beta</div>
+<div class="removed">-     disk1:T -- B:server</div>
+<div class="added">+ &amp;quot;Category A&amp;quot;</div>
+<div class="removed">-     disk2:T -- B:db</div>
+<div class="added">+     &amp;quot;Item A1&amp;quot;: 10</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="added">+     &amp;quot;Item A2&amp;quot;: 20</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;---</div>
+<div class="added">+ &amp;quot;Category B&amp;quot;</div>
+<div class="removed">- title: &amp;quot;Grades&amp;quot;</div>
+<div class="added">+     &amp;quot;Item B1&amp;quot;: 15</div>
+<div class="removed">- ---</div>
+<div class="added">+     &amp;quot;Item B2&amp;quot;: 25</div>
+<div class="removed">- radar-beta</div>
+<div class="added">+ &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="removed">-   axis m[&amp;quot;Math&amp;quot;], s[&amp;quot;Science&amp;quot;], e[&amp;quot;English&amp;quot;]</div>
+<div class="added">+ </div>
+<div class="removed">-   axis h[&amp;quot;History&amp;quot;], g[&amp;quot;Geography&amp;quot;], a[&amp;quot;Art&amp;quot;]</div>
+<div class="removed">-   curve a[&amp;quot;Alice&amp;quot;]{85, 90, 80, 70, 75, 90}</div>
+<div class="removed">-   curve b[&amp;quot;Bob&amp;quot;]{70, 75, 85, 80, 90, 85}</div>
+<div class="removed">- </div>
+<div class="removed">-   max 100</div>
+<div class="removed">-   min 0</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+<div class="removed">- &lt;pre&gt;&lt;code class="mermaid"&gt;treemap-beta</div>
+<div class="removed">- &amp;quot;Category A&amp;quot;</div>
+<div class="removed">-     &amp;quot;Item A1&amp;quot;: 10</div>
+<div class="removed">-     &amp;quot;Item A2&amp;quot;: 20</div>
+<div class="removed">- &amp;quot;Category B&amp;quot;</div>
+<div class="removed">-     &amp;quot;Item B1&amp;quot;: 15</div>
+<div class="removed">-     &amp;quot;Item B2&amp;quot;: 25</div>
+<div class="removed">- &lt;/code&gt;&lt;/pre&gt;</div>
+
+    </div>
+    
+</body>
+</html>

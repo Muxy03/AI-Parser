@@ -2,13 +2,13 @@
  * Renderer - Converts Markdown tokens to HTML with Mermaid support
  */
 
-import { marked } from 'marked';
+import { marked, Renderer } from 'marked';
 import { ParserOptions } from './types';
 import { MermaidProcessor } from './mermaidProcessor';
 import { isMermaidBlock } from './utils';
 
 export class MarkdownRenderer {
-  private renderer: marked.Renderer;
+  private renderer: Renderer;
   private mermaidProcessor: MermaidProcessor;
   private options: ParserOptions;
   private mermaidIndex: number = 0;
@@ -16,7 +16,7 @@ export class MarkdownRenderer {
   constructor(options: ParserOptions, mermaidProcessor: MermaidProcessor) {
     this.options = options;
     this.mermaidProcessor = mermaidProcessor;
-    this.renderer = new marked.Renderer();
+    this.renderer = new Renderer();
     this.setupCustomRenderers();
   }
 
@@ -59,8 +59,8 @@ export class MarkdownRenderer {
       renderer: this.renderer,
       gfm: this.options.gfm ?? true,
       breaks: this.options.breaks ?? true,
-      headerIds: this.options.headerIds ?? true,
-      mangle: false
+      // headerIds: this.options.headerIds ?? true,
+      // mangle: false
     });
 
     return marked.parse(markdown) as string;

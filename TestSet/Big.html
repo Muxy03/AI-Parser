@@ -1,0 +1,115 @@
+<h1>Chapter 4 – Grammars and Top-Down Parsing</h1>
+<h2>4.1 Introduction</h2>
+<p>In this lecture, Professor Andrea Corradini introduced the theory and practice of <strong>grammars</strong> and their role in defining the syntax of programming languages, with a particular focus on <strong>top-down parsing</strong>. Unlike previous lessons that explored the broader architecture of compilers, this lecture focused on how grammars generate languages, how derivations and parse trees work, and how parsers determine whether a program is syntactically correct【50†Trascrizione】.</p>
+<h2>4.2 Syntax, Semantics, and Pragmatics</h2>
+<p>To specify a programming language, three aspects are essential:</p>
+<ul>
+<li><strong>Syntax</strong>: the formal rules that define valid programs (expressed through grammars).</li>
+<li><strong>Semantics</strong>: the meaning of syntactically valid programs.</li>
+<li><strong>Pragmatics</strong>: conventions for readability and usability (e.g., paradigms such as object-oriented vs. functional, or naming conventions across languages).</li>
+</ul>
+<p>While this lecture concentrated on syntax, it acknowledged the importance of semantics (checked later in compilation) and pragmatics (vital for code readability and maintainability).</p>
+<h2>4.3 Grammars and the Chomsky Hierarchy</h2>
+<p>A <strong>grammar</strong> is defined as a tuple consisting of:</p>
+<ul>
+<li>A set of terminal symbols (tokens).</li>
+<li>A set of non-terminal symbols.</li>
+<li>A set of productions (rewriting rules).</li>
+<li>A start symbol.</li>
+</ul>
+<p>The <strong>Chomsky hierarchy</strong> classifies grammars by expressive power:</p>
+<ol>
+<li><strong>Regular grammars (Type 3)</strong> – can be recognized by <strong>finite automata</strong>.</li>
+<li><strong>Context-free grammars (Type 2)</strong> – can be recognized by <strong>pushdown automata</strong> (with a stack).</li>
+<li><strong>Context-sensitive grammars (Type 1)</strong> – require more complex automata.</li>
+<li><strong>Unrestricted grammars (Type 0)</strong> – equivalent to <strong>Turing machines</strong>.</li>
+</ol>
+<p>Each level strictly includes the previous one. For example:</p>
+<ul>
+<li>Finite languages are regular.</li>
+<li>The language <code>{a^n b^n}</code> is context-free but not regular.</li>
+<li>The language <code>{a^n b^n c^n}</code> is context-sensitive but not context-free【50†Trascrizione】.</li>
+</ul>
+<pre><code class="mermaid">graph TD
+  A[&quot;Unrestricted Languages (Type 0)&quot;] --&gt; B[&quot;Context-Sensitive Languages (Type 1)&quot;]
+  B --&gt; C[&quot;Context-Free Languages (Type 2)&quot;]
+  C --&gt; D[&quot;Regular Languages (Type 3)&quot;]
+</code></pre>
+<p><em>Figure 4.1 – The Chomsky hierarchy of grammars.</em></p>
+<h2>4.4 Derivations and Parse Trees</h2>
+<ul>
+<li>A <strong>derivation</strong> is a sequence of steps applying productions to generate strings from the start symbol.</li>
+<li><strong>Leftmost derivations</strong> always expand the leftmost non-terminal first.</li>
+<li><strong>Rightmost derivations</strong> always expand the rightmost non-terminal first.</li>
+</ul>
+<p>A <strong>parse tree</strong> represents the structure of a derivation:</p>
+<ul>
+<li>Root: the start symbol.</li>
+<li>Internal nodes: non-terminals expanded by productions.</li>
+<li>Leaves: terminal symbols (tokens).</li>
+</ul>
+<p>Parse trees abstract away from the order of derivations, offering a canonical representation of structure. However, a grammar may be <strong>ambiguous</strong>, meaning that multiple parse trees can yield the same string. This is problematic because ambiguity can imply multiple interpretations of the same program.</p>
+<h3>Example: Ambiguity</h3>
+<p>For arithmetic expressions with <code>+</code> and <code>-</code>, the string <code>9 - 5 + 2</code> can be parsed in two ways:</p>
+<ul>
+<li><code>(9 - 5) + 2 = 6</code></li>
+<li><code>9 - (5 + 2) = 2</code></li>
+</ul>
+<p>To resolve ambiguity, programming languages adopt:</p>
+<ul>
+<li><strong>Operator precedence</strong> (e.g., <code>*</code> has higher precedence than <code>+</code>).</li>
+<li><strong>Associativity rules</strong> (e.g., <code>+</code> and <code>-</code> are left-associative).</li>
+</ul>
+<p>Another classical ambiguity is the <strong>dangling else problem</strong> in conditional statements, where an <code>else</code> clause could be attached to multiple <code>if</code> statements. Most languages resolve this by attaching the <code>else</code> to the nearest unmatched <code>if</code>【50†Trascrizione】.</p>
+<h2>4.5 Lexical and Syntax Grammars</h2>
+<p>Programming languages typically separate two grammars:</p>
+<ul>
+<li><strong>Lexical grammar (regular)</strong>: defines how characters group into tokens. Implemented via <strong>regular expressions</strong> and finite automata.</li>
+<li><strong>Syntax grammar (context-free)</strong>: defines how tokens combine into valid structures (statements, expressions).</li>
+</ul>
+<p>Some constraints (e.g., variables must be declared before use, or matching numbers of actual and formal parameters) cannot be expressed in context-free grammars. These are enforced later during <strong>semantic analysis</strong>【50†Trascrizione】.</p>
+<h2>4.6 Parsing Techniques</h2>
+<p>Parsing is the process of determining if a sequence of tokens belongs to the language defined by a grammar. General parsing algorithms may have cubic complexity (O(n³)) and are impractical for real-world programming languages. Instead, compilers use efficient algorithms based on restricted grammars.</p>
+<h3>4.6.1 Top-Down Parsing</h3>
+<ul>
+<li>Constructs the parse tree from the root down to the leaves.</li>
+<li>Straightforward to implement: each non-terminal corresponds to a procedure that attempts to match input.</li>
+<li>Naive recursive descent with backtracking is <strong>exponential</strong> in complexity.</li>
+</ul>
+<h3>4.6.2 Predictive Parsing (LL Parsing)</h3>
+<ul>
+<li>Restricts grammars to avoid backtracking.</li>
+<li>Uses <strong>lookahead tokens</strong> to decide which production to apply.</li>
+<li>Achieves <strong>linear time parsing</strong>.</li>
+</ul>
+<pre><code class="mermaid">graph TD
+  A[Start Symbol] --&gt; B[Predictive Parser]
+  B --&gt; C[Lookahead Token]
+  C --&gt; D[Select Production]
+  D --&gt; E[Expand Non-Terminals]
+</code></pre>
+<p><em>Figure 4.2 – Simplified predictive parsing strategy.</em></p>
+<h4>First and Follow Sets</h4>
+<p>To build predictive parsers, two sets are computed:</p>
+<ul>
+<li><strong>First(α)</strong>: the set of tokens that can begin strings derived from α.</li>
+<li><strong>Follow(A)</strong>: the set of tokens that can immediately follow the non-terminal A in derivations.</li>
+</ul>
+<p>These sets help ensure that the grammar is suitable for predictive parsing (LL(1) grammars).</p>
+<h4>Eliminating Left Recursion</h4>
+<p>Predictive parsers cannot handle <strong>left-recursive grammars</strong> (where a non-terminal can derive itself as the first symbol). Transformations exist to eliminate left recursion by rewriting productions into right-recursive forms.</p>
+<h2>4.7 Practical Examples</h2>
+<p>During the lecture, small grammars were used to illustrate predictive parsing. A demonstration with ChatGPT showed how a grammar could be translated into recursive parsing functions, and how <strong>lookahead tokens</strong> allow parsers to decide which production to apply without backtracking【50†Trascrizione】.</p>
+<pre><code class="language-csharp">void Expr() {
+    Term();
+    while (lookahead == &#39;+&#39; || lookahead == &#39;-&#39;) {
+        Token op = lookahead;
+        match(op);
+        Term();
+    }
+}
+</code></pre>
+<p><em>Figure 4.3 – Example of recursive descent parsing function for expressions.</em></p>
+<h2>4.8 Conclusion</h2>
+<p>This lecture emphasized how <strong>grammars formalize syntax</strong>, how <strong>parse trees</strong> ensure structured representation, and how <strong>ambiguity must be resolved</strong> to ensure deterministic semantics. Top-down parsing, and in particular <strong>predictive (LL) parsing</strong>, was presented as an efficient and widely adopted strategy for real-world compilers.</p>
+<p>Professor Corradini concluded by highlighting the complementarity of teaching styles: <em>“I feel very much like a compiler, where Antonio is an interpreter.”</em>【50†Trascrizione】</p>

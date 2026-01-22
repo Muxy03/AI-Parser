@@ -11,7 +11,7 @@ class MarkdownRenderer {
         this.mermaidIndex = 0;
         this.options = options;
         this.mermaidProcessor = mermaidProcessor;
-        this.renderer = new marked_1.marked.Renderer();
+        this.renderer = new marked_1.Renderer();
         this.setupCustomRenderers();
     }
     /**
@@ -48,8 +48,8 @@ class MarkdownRenderer {
             renderer: this.renderer,
             gfm: this.options.gfm ?? true,
             breaks: this.options.breaks ?? true,
-            headerIds: this.options.headerIds ?? true,
-            mangle: false
+            // headerIds: this.options.headerIds ?? true,
+            // mangle: false
         });
         return marked_1.marked.parse(markdown);
     }
